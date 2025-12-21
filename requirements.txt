@@ -1,0 +1,4 @@
+meilisearch
+requests
+beautifulsoup4
+nltk

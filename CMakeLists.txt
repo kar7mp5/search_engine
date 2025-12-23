@@ -13,7 +13,8 @@ else()
 endif()
 
 set(SOURCES
-    src/main.c
+    main.c
+    src/crawler.c
 )
 
 include_directories(src include)

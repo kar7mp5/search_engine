@@ -1,5 +1,4 @@
-https://metr.org/
-https://www.ucsf.edu/
-https://lareviewofbooks.org/
-https://annas-archive.li/
-https://www.jmail.world/
+https://convex-optimization-for-all.github.io/contents/chapter04/
+https://convex-optimization-for-all.github.io/contents/chapter01/
+https://convex-optimization-for-all.github.io/contents/chapter02/
+https://convex-optimization-for-all.github.io/contents/chapter03/

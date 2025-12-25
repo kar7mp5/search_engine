@@ -8,9 +8,17 @@ from urllib.parse import urljoin, urlparse
 import pandas as pd
 
 
+from custom_logger import Logger
+import logging
+
+
 class SearchEngine:
 
     def __init__(self):
+        # Custom logger
+        logging.setLoggerClass(Logger)
+        self.logger = logging.getLogger(__name__)
+
         # A set to keep track of visited URLs to avoid infinite loops
         self.visited_urls = set()
         self.lock = threading.Lock()  # Lock for thread-safe access to visited_urls
@@ -52,7 +60,7 @@ class SearchEngine:
                         continue
                     self.visited_urls.add(url)
 
-                print(f"Crawling: {url} (depth: {depth})")
+                self.logger.info(f"Crawling: {url} (depth: {depth})")
                 urls.append(url)
 
                 try:
@@ -94,5 +102,6 @@ class SearchEngine:
             urls (list[str]): urls to save
             file_path (str): file path to save
         """
+        self.logger.info(f'Save to {file_path}')
         ser = pd.Series(urls)
         ser.to_csv(file_path, index=False)

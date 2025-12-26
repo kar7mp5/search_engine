@@ -7,6 +7,7 @@
 - [Getting Started](#getting-started)
     - [Frontend](#frontend)
     - [Backend](#backend)
+    - [Environment Variables](#environment-variables)
 - [LICENSE](#license)
 
 ## Getting Started
@@ -36,7 +37,14 @@ sudo apt install pkg-config
 sudo apt install libcurl4-openssl-dev libgumbo-dev libxml2-dev
 ```
 
+### Environment Variables
 
+Required environment variables
+```
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS='127.0.0.1, 127.0.0.2'
+```
 
 ## LICENSE
 

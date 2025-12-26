@@ -1,5 +1,7 @@
 # Django
 Django
+drf-yasg
+drf-spectacular[sidecar]
 djangorestframework
 
 meilisearch

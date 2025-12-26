@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.renderers import BaseRenderer
+from rest_framework.permissions import AllowAny   # ← temporary, to avoid permission issues
 from django.http import HttpResponse
 
 from drf_spectacular.utils import extend_schema, OpenApiTypes, OpenApiExample
@@ -20,7 +21,8 @@ class CSVRenderer(BaseRenderer):
 
 class CrawlView(APIView):
     renderer_classes = [CSVRenderer]
-
+    permission_classes = [AllowAny]
+    
     @extend_schema(
         summary="Crawl URLs and return discovered base URLs as CSV",
         description="Provide starting URLs, depth, and threads. Returns a CSV file download on success.",

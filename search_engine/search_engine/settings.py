@@ -140,11 +140,17 @@ SWAGGER_SETTINGS = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Search Engine API',
-    'DESCRIPTION': 'API for web crawling and base URL discovery',
+    'TITLE': 'Search Engine Crawler API',
+    'DESCRIPTION': 'API for discovering base/root URLs from websites via multi-threaded crawling.',
     'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    # Add more: https://drf-spectacular.readthedocs.io/en/latest/settings.html
+    'SERVE_INCLUDE_SCHEMA': False,          # hides /schema/ from UI if you want
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+        'displayOperationId': True,
+    },
+    # Optional: makes file download button nicer
+    'COMPONENT_NO_READ_ONLY_REQUIRED': True,
 }
 
 REST_FRAMEWORK = {

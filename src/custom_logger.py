@@ -20,9 +20,3 @@ class ConsoleHandler(logging.StreamHandler):
         )
         self.setFormatter(formatter)
         self.setLevel(level)
-
-# # Set the custom logger class as the default logger class
-# logging.setLoggerClass(Logger)
-
-# # Use the custom logger
-# logger = logging.getLogger(__name__)

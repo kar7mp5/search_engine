@@ -7,21 +7,21 @@ from urllib.parse import urljoin, urlparse
 
 import pandas as pd
 
-
 from custom_logger import Logger
 import logging
 
 
-class SearchEngine:
+class ScrapWebsite:
 
     def __init__(self):
-        # Custom logger
+        # Initialize CustomLogger 
         logging.setLoggerClass(Logger)
         self.logger = logging.getLogger(__name__)
 
         # A set to keep track of visited URLs to avoid infinite loops
         self.visited_urls = set()
         self.lock = threading.Lock()  # Lock for thread-safe access to visited_urls
+        self.discovered_bases = set()
 
 
     def crawl(self, start_urls: list[str], max_depth: int=1, num_threads: int=4) -> list[str]:
@@ -41,7 +41,13 @@ class SearchEngine:
 
         allowed_domains: set[str] = {urlparse(url).netloc for url in start_urls}
         
-        urls = []
+        # Initialize discovered bases with start URLs' bases
+        self.discovered_bases = set()
+        for url in start_urls:
+            parsed = urlparse(url)
+            if parsed.scheme in ('http', 'https'):
+                base = parsed.scheme + '://' + parsed.netloc + '/'
+                self.discovered_bases.add(base)
         
         task_queue = queue.Queue()
         for url in start_urls:
@@ -61,7 +67,6 @@ class SearchEngine:
                     self.visited_urls.add(url)
 
                 self.logger.info(f"Crawling: {url} (depth: {depth})")
-                urls.append(url)
 
                 try:
                     response = requests.get(url, timeout=5)
@@ -73,7 +78,12 @@ class SearchEngine:
                         href = link.get('href')
                         if href:
                             absolute_url = urljoin(url, href)
-                            if urlparse(absolute_url).netloc in allowed_domains:
+                            parsed = urlparse(absolute_url)
+                            if parsed.scheme in ('http', 'https'):
+                                base = parsed.scheme + '://' + parsed.netloc + '/'
+                                with self.lock:
+                                    self.discovered_bases.add(base)
+                            if parsed.netloc in allowed_domains:
                                 task_queue.put((absolute_url, depth - 1))
 
                 except requests.exceptions.RequestException as e:
@@ -92,7 +102,7 @@ class SearchEngine:
         for t in threads:
             t.join()
         
-        return urls
+        return list(self.discovered_bases)
     
     
     def save_to_csv(self, urls: list[str], file_path: str):

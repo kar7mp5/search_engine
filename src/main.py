@@ -1,12 +1,12 @@
-from search_engine import SearchEngine
+from scrap_website import ScrapWebsite
 
 
 def main():
-    search_engine = SearchEngine()
+    scrapper = ScrapWebsite()
     seed_url = ['http://quotes.toscrape.com', 'https://kar7mp5.github.io']
-    urls = search_engine.crawl(seed_url, max_depth=2)
+    urls = scrapper.crawl(seed_url, max_depth=2)
 
-    search_engine.save_to_csv(urls, './urls.csv')
+    scrapper.save_to_csv(urls, './urls.csv')
     print(urls)
 
 

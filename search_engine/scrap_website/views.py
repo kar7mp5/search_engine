@@ -35,23 +35,12 @@ class CrawlView(APIView):
                 {"message": "No base URLs discovered", "urls": []},
                 status=status.HTTP_200_OK
             )
-
-        # Generate CSV content in-memory
-        # csv_content = '\n'.join(found_bases) + '\n'
-
-        # print(csv_content)
-        
+       
         data = {
             'base urls': found_bases
         }
         
         return JsonResponse(data)
-        
-        # return HttpResponse(
-        #     csv_content,
-        #     content_type='text/csv',
-        #     headers={'Content-Disposition': 'attachment; filename="discovered_base_urls.csv"'}
-        # )
 
 
 from django.http import HttpResponse

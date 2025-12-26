@@ -40,7 +40,10 @@ class CrawlView(APIView):
             'base urls': found_bases
         }
         
-        return JsonResponse(data)
+        return Response(
+            {"message": "Success for crawling",
+             "base_urls": found_bases or []
+             })
 
 
 from django.http import HttpResponse

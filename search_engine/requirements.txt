@@ -3,6 +3,7 @@ Django
 drf-yasg
 drf-spectacular[sidecar]
 djangorestframework
+django-cors-headers
 
 meilisearch
 requests
